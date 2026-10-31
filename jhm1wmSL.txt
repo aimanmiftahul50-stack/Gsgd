@@ -1,0 +1,61 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "GUI TP MAP STRONGEST BATTLEGROUND"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 170, 0, 155)
+frame.Position = UDim2.new(0.5, -85, 0.5, -77)
+frame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = gui
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0,10)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1,0,0,30)
+title.BackgroundTransparency = 1
+title.Text = "TP MAP"
+title.TextColor3 = Color3.new(1,1,1)
+title.TextSize = 18
+title.Parent = frame
+
+local coordinates = {
+    Vector3.new(-66.0, 29.3, 20348.0),
+    Vector3.new(45.5, 652.8, -355.2),
+    Vector3.new(122.3, 440.8, -42.2)
+}
+
+local function createButton(name, position, coordinate)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1,-12,0,32)
+    button.Position = UDim2.new(0,6,0,position)
+    button.BackgroundColor3 = Color3.fromRGB(35,100,190)
+    button.Text = name
+    button.TextColor3 = Color3.new(1,1,1)
+    button.TextSize = 15
+    button.Parent = frame
+
+    local c = Instance.new("UICorner")
+    c.CornerRadius = UDim.new(0,7)
+    c.Parent = button
+
+    button.MouseButton1Click:Connect(function()
+        local character = player.Character
+        local root = character and character:FindFirstChild("HumanoidRootPart")
+
+        if root then
+            root.CFrame = CFrame.new(coordinate)
+        end
+    end)
+end
+
+createButton("DEAD CONTER", 36, coordinates[1])
+createButton("mountain", 73, coordinates[2])
+createButton("middle map", 110, coordinates[3])
